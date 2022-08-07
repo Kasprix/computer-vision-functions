@@ -7,7 +7,7 @@ import pandas as pd
 co_ordinates = [(0,0), (1,1), (2,2), (3,0)]
 thetas = [0,45,90,135]
 
-def hough_transform(width, height, thetas, coordinates):
+def hough_transform(width, height, thetas, co_ordinates):
 
     r_value = int( round( sqrt( (width-1)**2 + (height-1)**2) , 0))
 

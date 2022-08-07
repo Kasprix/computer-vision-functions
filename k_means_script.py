@@ -1,13 +1,15 @@
+from cmath import sqrt
 import numpy as np
 from scipy.optimize import linear_sum_assignment
 
-
-cluster_point_1 = [14.167, 10.833, 12.5]
-
-cluster_point_2 = [10,10,28.33]
+from distance_functions import sum_of_absolute_difference
 
 
-feature_vector = [
+CLUSTER_POINT_1 = [14.167, 10.833, 12.5]
+
+CLUSTER_POINT_2 = [10,10,28.33]
+
+FEATURE_VECTOR = [
     [5, 10, 15],
     [10, 15, 30],
     [10, 10, 25],
@@ -21,16 +23,17 @@ feature_vector = [
     [30, 10, 10]
 ]
 
+
 def sad(list1, list2):
     total = 0
     for x in range(len(list1)):
-        total = total + abs(list1[x] - list2[x])
+        total = total + sum_of_absolute_difference(list1[x], list2[x])
 
     #cost_matrix = np.abs(arr1 - arr2[:, None])
     #pairs = linear_sum_assignment(cost_matrix)
     
     return round(total, 2)
 
-for x in range(len(feature_vector)):
-    print(sad(cluster_point_2, feature_vector[x]))
+for x in range(len(FEATURE_VECTOR)):
+    print(sad(CLUSTER_POINT_2, FEATURE_VECTOR[x]))
     print("\n")

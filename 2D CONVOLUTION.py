@@ -36,9 +36,8 @@ def convolve_with_mask(X, H):
 
     return Y
 
+
 kernel = np.array([[-1,1]])
-
 image=np.array([[0.01,.07,.01], [0.07,.75,.07], [0.01,.07,.01]])
-
 
 print(convolve_with_mask(image,kernel))
