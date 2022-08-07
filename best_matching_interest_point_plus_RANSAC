@@ -1,0 +1,107 @@
+from distance_functions import sum_of_absolute_difference
+
+
+left_image = [(10,4),(3,8),(0,2),(6,9),(9,1)]
+
+right_image = [(3,7),(1,1),(5,7),(8,0),(1,2)]
+
+left_image_coordinates = [(187,168),(203,290),(215,87),(234,28),(366,142)]
+
+right_image_coordinates = [(101,394),(115,186),(135,128),(269,243),(336,178)]
+
+
+def matching_interest_points(left_image, right_image):
+
+    matches = []
+
+    for left in left_image:
+        print("For:", left)
+        count = 0
+
+        min_list = []
+
+        for right in right_image:
+            sad_value = 0
+
+            sad_value += sum_of_absolute_difference(left[0], right[0])
+            sad_value += sum_of_absolute_difference(left[1], right[1])
+            print(str(right) + ":", sad_value)
+
+            min_list.append(sad_value)
+
+        print()
+        index_min = min(range(len(min_list)), key=min_list.__getitem__)
+        matches.append(right_image[index_min])
+
+    print("\n", matches)
+    # From Terminal Take the matches and replace their values with the respective coordinates for 
+
+    return matches
+
+
+def disparity(left_image, right_image, right_image_coordinates, matches):
+
+    coordinate_match_list = []
+    count = 0
+    disparity_list = []
+
+    for x in matches:
+
+        image_index = right_image.index(x)
+        coordinate_match = right_image_coordinates[image_index]
+
+        coordinate_match_list.append(coordinate_match)
+
+        sad_value_x = left_image[count][0] - coordinate_match[0]
+        sad_value_y = left_image[count][1] - coordinate_match[1]
+
+        disparity_list.append((sad_value_x, sad_value_y))
+
+        count += 1
+
+    print(coordinate_match_list)
+    print(disparity_list)
+
+    return disparity_list, coordinate_match_list
+
+
+def ransac(disparity_values, left_coordinates, right_coordinates):
+
+    for x in disparity_values:
+        print("\nFOR:", x)
+        count = 0
+        
+        # Factors in the repeat
+        consensus_set = -1
+
+        for left_disparity in left_coordinates:
+
+            difference = 0
+
+            x_value = left_disparity[0] - x[0] 
+            y_value = left_disparity[1] - x[1]
+
+            
+
+            difference += sum_of_absolute_difference(x_value, right_coordinates[count][0])
+            difference += sum_of_absolute_difference(y_value, right_coordinates[count][1])
+
+           
+
+            if difference < 20:
+                consensus_set+=1
+                print(" INLIER", left_disparity)
+                print("     ", left_disparity, "-", x, "=", "(" + str(x_value) + ", " + str(y_value) + ")")
+                print("         Actual Match is ", right_coordinates[count])
+            
+            count += 1
+        print("Consensus Set =", consensus_set )
+
+
+matches = matching_interest_points(left_image, right_image)
+
+
+disparity_values,coordinate_match_list = disparity(left_image_coordinates, right_image, right_image_coordinates, matches)
+
+
+ransac(disparity_values, left_image_coordinates, coordinate_match_list)

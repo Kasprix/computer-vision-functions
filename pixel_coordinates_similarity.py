@@ -4,6 +4,8 @@ import pandas as pd
 
 from distance_functions import sum_of_absolute_difference
 
+# FROM TUTORIAL 6
+
 WIDTH = 4
 HEIGHT = 3
 
