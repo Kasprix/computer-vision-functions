@@ -99,9 +99,5 @@ def ransac(disparity_values, left_coordinates, right_coordinates):
 
 
 matches = matching_interest_points(left_image, right_image)
-
-
 disparity_values,coordinate_match_list = disparity(left_image_coordinates, right_image, right_image_coordinates, matches)
-
-
 ransac(disparity_values, left_image_coordinates, coordinate_match_list)

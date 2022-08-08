@@ -43,7 +43,7 @@ for iteration in range(1,len(frames)):
     new_update = []
     new_sad = []
     for x in range(len(moving_value)):
-        result = frames[iteration][x]*
+        result = 0.5*moving_value[x] + 0.5*frames[iteration][x]
 
         difference = sum_of_absolute_difference(result, moving_value[x])
 
