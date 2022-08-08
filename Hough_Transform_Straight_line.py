@@ -4,8 +4,10 @@ import math
 import numpy as np
 import pandas as pd
 
-co_ordinates = [(0,0), (1,1), (2,2), (3,0)]
+co_ordinates = [(2,0), (2,1), (2,2), (0,2)]
 thetas = [0,45,90,135]
+
+
 
 def hough_transform(width, height, thetas, co_ordinates):
 
